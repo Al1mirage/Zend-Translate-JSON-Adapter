@@ -36,9 +36,15 @@ class Zend_Translate_Adapter_Json extends Zend_Translate_Adapter
         $translation = $this->translate($messageId, $this->getLocale());
         if(func_num_args() > 1) {
             $args = func_get_args();
-            $print = $args[1];
-            $print[0] = $translation;
-            $translation = call_user_func_array('sprintf', $print);
+
+            foreach ($args[1] as $key => $value) {
+                $args[1]['__' . $key . '__'] = $value;
+                unset($args[1][$key]);
+            }
+
+            $print = array($args[1]);
+            array_unshift($print, $translation);
+            $translation = call_user_func_array('strtr', $print);
         }
         return $translation;
     }
@@ -81,7 +87,6 @@ class Zend_Translate_Adapter_Json extends Zend_Translate_Adapter
         }
 
         $jsonString = file_get_contents($data);
-        $jsonString = preg_replace('/__(\d+)__/', '%$1$s', $jsonString);
         $array = json_decode($jsonString,true);
 
         if (!isset($this->_data[$locale])) {

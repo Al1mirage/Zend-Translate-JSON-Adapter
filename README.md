@@ -1,5 +1,5 @@
-Zend-Translate-JSON-Adapter
-===========================
+Zend-Translate-JSON-Adapter (FORK FOR JSPERANTO)
+================================================
 
 A JSON Adapter for the Zend Translate Module
 
@@ -8,21 +8,18 @@ Example:
 
     {
       "app": {
-        "name": "MY AWSOME APP",
-        "version": "1.0"
-      },
-      "errors": {
-        "not_found": "Not found",
-        "network_error": "Network error",
-        "fatal": {
-            "search": "Search Error Nr. __1__ : __2__"
+        "name": "MY AWESOME APP",
+        "version": "1.0",
+        "events": {
+          "jump": "The quick brown __subject__ __action__ over the lazy __object__"
         }
       }
     }
 
 You can access the translations hierarchical e.g. `$translate->_("app.name")`
 
-Simply pass parameters, no need for sprintf, e.g. `$translate->_("app.error.fatal.search", $errorNumber, $errorDescription)`
+Simply pass additional parameters as an associative array, e.g.
+`$translate->_("app.events.jump", array('subject' => 'fox', 'action' => 'jumps', 'object' => 'dog'))`
 
 # Initialisation #
 
@@ -41,5 +38,5 @@ or follow the [Zend Translate Guidelines](http://framework.zend.com/manual/en/ze
 
 # Motivation #
 
-I primarly wrote this adapter to use the same translation resource files for Javascript/JQuery and PHP.
-I use [i18next](http://i18next.com) for translation in Javascript in conjunction with [i18next Webtranslate](http://i18next.com/pages/ext_webtranslate.html)
+This is just a fork of adapter originally created by [SxDx](https://github.com/SxDx), but updated to be more consistent
+with jQuery translation library [jsperanto](https://github.com/jpjoyal/jsperanto), and my motivation is mostly the same :)
